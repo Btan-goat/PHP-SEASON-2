@@ -74,7 +74,8 @@ if (isset($_POST['btnRegister'])) {
                             if ($count_seven_digit_string < 7) {
                                 $seven_digitErr = "Kulang seven digit number mo lods";
                             } else {
-                                function random_password($length = 5) {
+                                function random_password($length = 5)
+                                {
                                     $str = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
                                     $shuffled = substr(str_shuffle($str), 0, $length);
                                     return $shuffled;
@@ -84,7 +85,7 @@ if (isset($_POST['btnRegister'])) {
                                 include 'connections.php';
 
                                 mysqli_query($connections, "INSERT INTO tbl_user(first_name, middle_name, last_name, gender, preffix, seven_digit, email, password) VALUES('$first_name','$middle_name','$last_name','$gender','$preffix','$seven_digit','$email','$password') ");
-                                
+
                                 echo "<script>window.location.href='success.php'</script>";
                             }
                         }
@@ -109,7 +110,7 @@ if (isset($_POST['btnRegister'])) {
     function isNumberKey(evt) {
         var charCode = (evt.which) ? evt.which : event.keyCode
 
-        if(charCode > 31 && (charCode < 48 || charCode > 57)) {
+        if (charCode > 31 && (charCode < 48 || charCode > 57)) {
             return false;
         }
         return true;
@@ -200,3 +201,48 @@ if (isset($_POST['btnRegister'])) {
     </center>
 
 </form>
+
+<?php
+
+include "connections.php";
+
+$view_query = mysqli_query($connections, "SELECT * FROM tbl_user");
+
+echo "<table border='1', width='50%'>
+        <tr>
+            <th>First Name</th>
+            <th>Middle Name</th>
+            <th>Last Name</th>
+            <th>Gender</th>
+            <th>Preffix</th>
+            <th>Seven Digit</th>
+            <th>Email</th>
+            <th>Passowrd</th>
+        </tr>";
+while ($row = mysqli_fetch_assoc($view_query)) {
+    $user_id = $row["user_id"];
+    $db_first_name = $row["first_name"];
+    $db_middle_name = $row["middle_name"];
+    $db_last_name = $row["last_name"];
+    $db_gender = $row["gender"];
+    $db_preffix = $row["preffix"];
+    $db_seven_digit = $row["seven_digit"];
+    $db_email = $row["email"];
+    $db_password = $row["password"];
+
+    echo "<tr>
+            <td>$db_first_name</td>
+            <td>$db_middle_name</td>
+            <td>$db_last_name</td>
+            <td>$db_gender</td>
+            <td>$db_preffix</td>
+            <td>$db_seven_digit</td>
+            <td>$db_email</td>
+            <td>$db_password</td>
+            
+          </tr>";
+}
+
+echo "</table>";
+
+?>
