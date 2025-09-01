@@ -3,4 +3,6 @@
 
 ?>
 
-<h3>NEW RECORD HAS BEEN SUCCESSFULLY INERTED</h3>
+<center>
+
+</center>
